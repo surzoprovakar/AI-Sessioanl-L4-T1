@@ -1,0 +1,79 @@
+Offline 2 task 1 :
+
+ekta 4*4 grid thakbe, jetate tilesgula suffle kora thakbe. toke final state e niye jete hobe. blank space er upore, niche, dane, bayer 4ta tiles er sathe 
+blank space k swap korte parbi sudu. ( boundary er khtre aro kom moves available ) ekhetre 5ta heuristic func use kore kontay koita step pore final state e
+chole asa jay segula compare korte hobe.
+
+suppose,
+	1 2 6 3
+	4 5 10 7
+	8 9 14 11
+	12 13 0 15    
+eta initial state. final state hobe : ( ekhane 0 k blank space dhrsi )
+	0 1 2 3
+	4 5 6 7
+	8 9 10 11
+	12 13 14 15
+
+Solution part :
+
+asterisk search er pseudocode sir er dewa link e pabi. oita bujhte hobe. Ideata hocce random ekta initial state( jeta ekta 2d array ) hobe amder bfs treer root. 
+etate blank space ar tar char pasher tiles swap kore notun 4ta state(2d array) pabo, jegula hobe root er children. then ei child gulao expand korbo, r ekta track 
+rakhbo je same child jno barbar expand na hoi. evabe ek somoy final state chole ase. kintu onk complexity hoi. tai amra priority queue use kori. eta ekta comaparator
+( jetake amra heuristic function name chini )  use kore queuer elementgula sort kore dey. jei child e visit korle age final state e jawa jabe take, queuer tope bosay 
+dey. 
+5ta heuristic er modde sagor er dewa 13jan_aman slide tate 4ta r hasan er dewa link e 1ta ( nmax swap ) pabi.
+
+Coding part : ( ami pseudocode type kisu (!) likhtesi.)
+
+struct compare
+{
+    bool operator()(grid &a, grid &b)
+    {
+        return heuristicfunc1(a) - heuristicfunc1(b);
+    }
+};
+
+int heuristicfunc1( grid a )
+int heuristicfunc2( grid a )
+int heuristicfunc3( grid a )
+int heuristicfunc4( grid a )
+int heuristicfunc5( grid a )
+//ei funcgula a grid r final grid k compare kore ekta value return kore, jeta sagor er dewa 13_jan aman slide e bekha kora ase. :)
+
+int BFS( start grid, final grid ) {
+	visited[start grid] = true
+	level[start grid] = 0;
+	
+	priority_queue < int[][], vector < int[][] > , compare > q;
+	q.add(start grid)
+	
+	while(!q.isempty()){
+		u = q.remove()
+		
+		//ekhon u grid er modde blank space , char pasher tiles er sathe swap kore grid v banabi.
+
+		if(!visited[v]){
+			visited[v] = true;
+			level[v] = level[u] + 1
+			
+			if(v == final grid ) return level[v]
+
+			q.add(v)
+		}
+	}
+}
+
+int main() {
+	print(BFS(start grid, final grid))
+}
+
+Suggestions:
+
+1. visited, level egula map hisebe rakhte paris.
+2. ekhane grid bolte ekta 2d array bujhaisi.
+3. Sir aro habijabi ( jmn branching factor r ki jno ber korte bolse ) , ami ogula akhono kori nai.
+4. class e ghumaisi + wasif sir er kotha bujhina. pin pinai kotha koy. -_- . tai prblm bujhte hajar vul thakte pare, be careful.
+5. ar ami onk kisu shortcut e bolsi. basic ideata disi sudu.
+
+best of luck!!!! 

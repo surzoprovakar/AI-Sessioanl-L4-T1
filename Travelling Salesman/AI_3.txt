@@ -1,0 +1,74 @@
+In this offline we are given the traditional travelling salesman problem. We would be given co-ordinates of n citties.
+(Take n as an input also). In the problem all cities are connected with each other. So u have to create a 2d array of 
+size n*n which will contain all the distances from a particular city to all other cities. Suppose current city is i. So 
+array[i][j] will contain distance from ith city to jth city. (distance from ith city to ith city will be 0). Distance
+should be calculted using eucledian
+
+Now u need to use Nearest Neighbour algorithm. To implement it first u have to take a city number ( Could be randomn or 
+as an input). Suppose city is x. Next u need to go to a city whose distance from city x is minimal among all other 
+distances of cities from x ecxluding x itself. U need to do this n times . If a city is visited then dont take that city.
+As a result we will have a tour which will start from x and end in x. ( A cycle). The tour will contain n edges. Save this.
+This tour will be used in every heuristic.
+
+
+
+Heuristic 1:
+Delete
+the maximum weighted edge. Suppose:
+the tour is 1 2 3 4 5 6 7 1.
+maximum weighted edge is 4-5.
+delete it. Then the result will be a spanning tree. In this case:
+5 6 7 1 2 3 4.
+Now take a random vertex. Do a dfs. Suppose the vertex is 1
+Dfs will result: 1 7 6 5 2 3 4 1. (a preorder trversal with the root at the last)
+This is an answer.
+
+
+
+Heuristic 2:
+Vertex Swap :
+Take a random vertex. Insert it in every other position . 
+It has 2 types.
+
+
+No 1:
+Best Fit
+Keep inserting the vertex in every single position . Take the minimum weighted path of them all.
+Suppose the tour is:
+1 2 3 4 5 6 1.
+Vertex is 4 
+U can insert it in 5 positions (including its own)
+Take the minimal weighted path from them.
+Keep doing vertex swap for a limited amount of numbers. After it the resulting path is ur solution.
+
+
+No 2:
+First Fit
+Same as no 1. But instead of taking the best one, take the first best u encounter which is better than the current path.
+Keep doing this as no 1 until it crosses the limit. This will be ur solution
+
+
+Heuristic 3:
+Edge swap.
+U have to randomly pick 2 edges. Insert the 2nd edge in the first edge.
+Suppose the tour is:
+1 2 3 4 5 6 1
+edges are:
+2-3
+5-6
+then the path will be: 1 2 5 6 3 4 1 or 1 2 6 5 3 4 1.
+Take the best path. Keep doing it like the others for a limited amount of number. The end of it will be ur last result.
+
+
+Note:
+1) I will suggest u to use vector. As u will have built in functions to reshape the array. Note:
+(Those who care about efficiency and time complexity unlike me may use STL's list as it will give more efficient operation)
+
+2) These heuristics will give local optimum not global. So solutions will be different.
+
+3)Some have used every single vertex in vertex swap best fit for a single loop . But i think it should be one vertex. ( Note this will guarantee optimal
+convergence which mine wont).
+
+4) I have wriiten this doc by the lecture provided in the group and by listening to the audio. I am not sure. If u find mistakes feel free to correct me.
+
+Thanks
